@@ -7,4 +7,17 @@ before_install:
 
 script:
   - docker run -e CI=true chamile/docker-tutorial npm run test -- --coverage
-  
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: "docker-tutorial" 
+  env: "DockerTutorial-env"
+  bucket_name: elasticbeanstalk-us-east-2-064440810353
+  bucket_path: "docker-tutorial"
+
+  on:
+    branch: master
+    
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
